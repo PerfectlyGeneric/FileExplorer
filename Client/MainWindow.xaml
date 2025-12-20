@@ -1,0 +1,122 @@
+﻿<Window x:Class="AplicationUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AplicationUI"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+
+    <TabControl Margin="10">
+
+        <TabItem Header="File Explorer">
+
+            <StackPanel Margin="10">
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10" VerticalAlignment="Center">
+                    <Button Content="Select Folder" Width="100" Command="{Binding SelectFolderCommand}" />
+                    <TextBox Text="{Binding SelectedFolderPath, Mode=TwoWay}" 
+                             IsReadOnly="True" 
+                             Margin="10,0,0,0" 
+                             Width="600"
+                             VerticalAlignment="Center" />
+                </StackPanel>
+
+                <ListBox ItemsSource="{Binding InputFiles}"
+                                SelectedItem="{Binding SelectedFile}">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Width="100" Margin="8" VerticalAlignment="Top">
+
+                                <StackPanel.InputBindings>
+                                    <MouseBinding MouseAction="LeftDoubleClick"
+                                                  Command="{Binding DataContext.OpenFileCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                                  CommandParameter="{Binding}"/>
+                                </StackPanel.InputBindings>
+                                
+                                <Image Source="{Binding Icon}" Width="64" Height="64"/>
+                                <TextBlock Text="{Binding Name}" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                </ListBox>
+            </StackPanel>
+
+        </TabItem>
+
+        <TabItem Header="My Files">
+            <StackPanel Margin="10">
+
+                <TextBlock Text="Files with Tags or Notes" 
+                   FontSize="14" 
+                   FontWeight="SemiBold" 
+                   Margin="0,0,0,10"
+                   Foreground="#555"/>
+
+                <ListBox ItemsSource="{Binding SavedFiles}"
+                 SelectedItem="{Binding SelectedFile}"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Width="100" Margin="8" VerticalAlignment="Top">
+
+                                <StackPanel.InputBindings>
+                                    <MouseBinding MouseAction="LeftDoubleClick"
+                                    Command="{Binding DataContext.OpenFileCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                    CommandParameter="{Binding}"/>
+                                </StackPanel.InputBindings>
+
+                                <Image Source="{Binding Icon}" Width="64" Height="64"/>
+                                <TextBlock Text="{Binding Name}" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            <Setter Property="Margin" Value="2"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                </ListBox>
+
+                <TextBlock Text="No files saved yet" 
+                   HorizontalAlignment="Center" 
+                   Foreground="LightGray"
+                   FontSize="16"
+                   Margin="0,40,0,0">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SavedFiles.Count}" Value="0">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+
+            </StackPanel>
+        </TabItem>
+
+    </TabControl>
+</Window>
