@@ -19,7 +19,7 @@ namespace AplicationUI.ViewModel
         private readonly IEnumerable<string> _globalTags;
         private readonly IFileDetailsInterface _currentPreview;
 
-        private Action _closeAction;
+        private Action<bool> _closeAction;
         public ICommand SaveCommand { get; }
         public ICommand RemoveTagCommand { get; }
         public ICommand AddSuggestedTagCommand { get; }
@@ -66,7 +66,7 @@ namespace AplicationUI.ViewModel
         }
 
 
-        public FileDetailsWindowModel(AiModelHandler aiService, File file, IEnumerable<string> globalTags, Action closeAction)
+        public FileDetailsWindowModel(AiModelHandler aiService, File file, IEnumerable<string> globalTags, Action<bool> closeAction)
         {
             _originalFile = file;
             _aiService = aiService;
@@ -92,7 +92,7 @@ namespace AplicationUI.ViewModel
 
         private void ExecuteClose(object CloseGiven)
         {
-            _closeAction?.Invoke();
+            _closeAction?.Invoke(false);
         }
 
         private void ExecuteSave(object SaveGiven)
@@ -100,7 +100,7 @@ namespace AplicationUI.ViewModel
             _originalFile.Relic.Notes = Notes;
             _originalFile.Relic.Tags = YourTags.ToList();
 
-            _closeAction?.Invoke();
+            _closeAction?.Invoke(true);
         }
 
         /// <summary>

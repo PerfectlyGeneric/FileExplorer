@@ -27,9 +27,10 @@ namespace AplicationUI.View
             InitializeComponent();
             this.file = file;
 
-            Action closeAction = new Action(() => this.Close());
+            //Action closeAction = new Action(() => this.Close());
 
-            this.DataContext = new FileDetailsWindowModel(aiService, file, globalTags, closeAction);
+            this.DataContext = new FileDetailsWindowModel(aiService, file, globalTags,
+                (result) => { this.DialogResult = result; this.Close(); });
         }
 
     }
