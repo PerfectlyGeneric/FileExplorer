@@ -9,9 +9,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\left_arrow.png" />
+    <None Remove="Resources\right_arrow.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft-WindowsAPICodePack-Core" Version="1.1.5" />
     <PackageReference Include="Microsoft-WindowsAPICodePack-Shell" Version="1.1.5" />
     <PackageReference Include="System.Drawing.Common" Version="10.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\left_arrow.png" />
+    <Resource Include="Resources\right_arrow.png" />
   </ItemGroup>
 
 </Project>

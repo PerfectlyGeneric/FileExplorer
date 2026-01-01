@@ -7,6 +7,8 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Text.Json.Serialization;
 
+//Change to IHttpClientFactory later
+
 public record TagScore(string Tag, float Score);
 //public record AiResponse(TagScore[] TagsRanked)
 public record AiResponse

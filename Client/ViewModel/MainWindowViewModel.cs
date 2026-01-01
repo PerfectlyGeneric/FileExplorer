@@ -159,8 +159,8 @@ namespace AplicationUI.ViewModel
         /// </remarks>
         private void UpdateSavedFiles(File file)
         {
-            bool hasTags = file.Tags != null && file.Tags.Count > 0;
-            bool hasNotes = !string.IsNullOrWhiteSpace(file.Notes);
+            bool hasTags = file.Relic.Tags != null && file.Relic.Tags.Count > 0;
+            bool hasNotes = !string.IsNullOrWhiteSpace(file.Relic.Notes);
 
             if (hasTags || hasNotes)
             {
@@ -171,7 +171,7 @@ namespace AplicationUI.ViewModel
 
                 if(hasTags)
                 {
-                    foreach (var tag in file.Tags)
+                    foreach (var tag in file.Relic.Tags)
                     {
                         _globalTags.Add(tag);
                     }   

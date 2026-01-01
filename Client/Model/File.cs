@@ -1,4 +1,5 @@
 ﻿using AplicationUI.Model;
+using FileExplorer.Model;
 using System;
 using System.Configuration;
 using System.Drawing;
@@ -6,7 +7,7 @@ using System.Windows.Media;
 
 public enum  FileType
 {
-    Unknown,Image,Audio,Video,TextFile, Document
+    Unknown,Image,Audio,Video,TextFile,Document, Folder //Don't forget to implement Folder
 }
 
 public class File
@@ -14,17 +15,20 @@ public class File
     public string Name { get; protected set; } = string.Empty;
     public ImageSource Icon { get; protected set; } 
     protected string Path { get; set; } = string.Empty;
-    protected string Extention { get; set; }
+    protected string Extension { get; set; }
     protected FileType Type { get; set; }
 
-    public List<string> Tags { get; set; } = new List<string>();
-    public string Notes { get; set; } = string.Empty;
+    //
 
     protected IFilePreview? Preview { get; set; }
 
+    public FileReliquary Relic { get; set; }
+    public FileMetaData? Metadata { get; set; }
+    
+
     public File()
     {
-        Extention= string.Empty;   
+        Extension= string.Empty;   
     }
 
     public File(string name, ImageSource icon, string path)
@@ -32,9 +36,12 @@ public class File
         this.Path = path;
         this.Name = name;
         this.Icon = icon;
-        Extention = System.IO.Path.GetExtension(path);
-        Type = ManageFileType(Extention);
+        Extension = System.IO.Path.GetExtension(path);
+        Type = ManageFileType(Extension);
         Preview = HandlePreview();
+
+        Relic = new FileReliquary();
+        Metadata = null;        //It takes extra space when doing a short preview
     }
 
     public override string ToString()
@@ -45,6 +52,11 @@ public class File
     public string GetPath()
     {
         return Path;
+    }
+
+    public string GetFileType()
+    {
+        return Type.ToString();
     }
 
 
