@@ -1,6 +1,7 @@
-﻿using AplicationUI.Model;
+﻿using FileExplorer.CommonHelpers;
 using FileExplorer.Model;
 using System;
+using System.ComponentModel;
 using System.Configuration;
 using System.Drawing;
 using System.Windows.Media;
@@ -10,12 +11,16 @@ public enum  FileType
     Unknown,Image,Audio,Video,TextFile,Document, Folder //Don't forget to implement Folder
 }
 
-public class File
+public class File : INotifyPropertyChanged
 {
     public string Name { get; protected set; } = string.Empty;
     public ImageSource Icon { get; protected set; } 
     protected string Path { get; set; } = string.Empty;
     protected string Extension { get; set; }
+    private bool _isSelected;
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
     protected FileType Type { get; set; }
 
     //
@@ -59,6 +64,17 @@ public class File
         return Type.ToString();
     }
 
+    public bool IsSelected
+    {
+        get => _isSelected;
+        set
+        {
+            if (_isSelected == value) return;
+            _isSelected = value;
+
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsSelected)));
+        }
+    }
 
     public FileType ManageFileType(string extension)
     {

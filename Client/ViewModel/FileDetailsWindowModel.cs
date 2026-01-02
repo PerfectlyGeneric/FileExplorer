@@ -1,4 +1,5 @@
 ﻿using FileExplorer.ViewModel;
+using FileExplorer.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,7 +11,7 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
 
-namespace AplicationUI.ViewModel
+namespace FileExplorer.ViewModel
 {
     internal class FileDetailsWindowModel : CommonHelpers.ViewModelBase
     {
@@ -24,6 +25,7 @@ namespace AplicationUI.ViewModel
         public ICommand RemoveTagCommand { get; }
         public ICommand AddSuggestedTagCommand { get; }
         public ICommand CloseCommand { get; }
+        public ICommand AddTagCommand { get; }
 
         public File File => _originalFile;
         public IFileDetailsInterface CurrentPreview => _currentPreview;
@@ -85,6 +87,7 @@ namespace AplicationUI.ViewModel
             RemoveTagCommand = new CommonHelpers.RelayCommand<string>(RemoveTag);
             AddSuggestedTagCommand = new CommonHelpers.RelayCommand<string>(AddSuggestedTag);
             CloseCommand = new CommonHelpers.RelayCommand(ExecuteClose);
+            AddTagCommand = new CommonHelpers.RelayCommand(AddTag);
 
 
             ProcessSelectedFileAsync();
@@ -156,6 +159,21 @@ namespace AplicationUI.ViewModel
             if (YourTags.Contains(tag))
             {
                 YourTags.Remove(tag);
+            }
+        }
+
+        private void AddTag(object filler)
+        {
+            var detailsWindow = new FileTagAdderView(File.Name, YourTags);
+
+            bool? result = detailsWindow.ShowDialog();
+
+            if (result == true)
+            {
+                if (detailsWindow.DataContext is FileTagAdderViewModel childvm)
+                {
+                    YourTags = new ObservableCollection<string>(childvm.Tags);
+                }
             }
         }
 
