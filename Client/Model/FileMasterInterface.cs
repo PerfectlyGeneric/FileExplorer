@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace AplicationUI.Model
+namespace FileExplorer.Model
 {
     public interface IFilePreview
     {

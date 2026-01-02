@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AplicationUI.CommonHelpers
+namespace FileExplorer.CommonHelpers
 {
     /// <summary>
     /// Common base class for ViewModels implementing INotifyPropertyChanged

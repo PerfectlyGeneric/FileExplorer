@@ -9,9 +9,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using AplicationUI.ViewModel;
+using FileExplorer.ViewModel;
 
-namespace AplicationUI
+namespace FileExplorer
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

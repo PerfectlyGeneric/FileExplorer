@@ -1,5 +1,4 @@
-﻿using AplicationUI.Model;
-using FileExplorer.Model;
+﻿using FileExplorer.Model;
 using System;
 using System.Configuration;
 using System.Drawing;

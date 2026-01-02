@@ -1,5 +1,5 @@
-﻿using AplicationUI.CommonHelpers;
-using AplicationUI.View;
+﻿using FileExplorer.CommonHelpers;
+using FileExplorer.View;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ using System.Windows;
 using System.Windows.Input;
 
 
-namespace AplicationUI.ViewModel
+namespace FileExplorer.ViewModel
 {
     internal class MainWindowViewModel : CommonHelpers.ViewModelBase
     {
