@@ -2,7 +2,7 @@
 using System.Data;
 using System.Windows;
 
-namespace AplicationUI
+namespace FileExplorer
 {
     /// <summary>
     /// Interaction logic for App.xaml

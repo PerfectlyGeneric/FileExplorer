@@ -1,5 +1,5 @@
-﻿using AplicationUI.CommonHelpers;
-using AplicationUI.View;
+﻿using FileExplorer.CommonHelpers;
+using FileExplorer.View;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.Collections.Generic;
@@ -13,13 +13,14 @@ using System.Windows;
 using System.Windows.Input;
 
 
-namespace AplicationUI.ViewModel
+namespace FileExplorer.ViewModel
 {
     internal class MainWindowViewModel : CommonHelpers.ViewModelBase
     {
 
         public ICommand SelectFolderCommand { get; private set; }
         public ICommand OpenFileCommand { get; private set; }
+        public ICommand AddTagCommand { get; private set; }
 
         private readonly AiModelHandler _aiService;
         private List<File> _allFiles;
@@ -77,6 +78,7 @@ namespace AplicationUI.ViewModel
 
             SelectFolderCommand = new CommonHelpers.RelayCommand(ExecuteSelectFolder);
             OpenFileCommand = new CommonHelpers.RelayCommand(ExecuteOpenFile);
+            AddTagCommand = new CommonHelpers.RelayCommand(ExecuteAddTag);
 
 
             InputFiles = new ObservableCollection<File>();
@@ -195,6 +197,22 @@ namespace AplicationUI.ViewModel
             if (parameter is File file)
             {
                 ShowFileDetailsPopup(file);
+            }
+        }
+
+        private void ExecuteAddTag(object parameter)
+        {
+            var selectedFiles = InputFiles.Where(f => f.IsSelected).ToList();
+
+            if (selectedFiles.Count == 0) return;
+            var tagView = new FileTagAdderView(selectedFiles, _globalTags);
+
+            tagView.Owner = Application.Current.MainWindow; 
+            tagView.ShowDialog();
+
+            foreach (var file in selectedFiles)
+            {
+                UpdateSavedFiles(file);
             }
         }
     }
