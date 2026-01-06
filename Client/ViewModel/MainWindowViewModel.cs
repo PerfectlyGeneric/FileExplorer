@@ -21,6 +21,7 @@ namespace FileExplorer.ViewModel
         public ICommand SelectFolderCommand { get; private set; }
         public ICommand OpenFileCommand { get; private set; }
         public ICommand AddTagCommand { get; private set; }
+        public ICommand SortCommand { get; private set; }
 
         private readonly AiModelHandler _aiService;
         private List<File> _allFiles;
