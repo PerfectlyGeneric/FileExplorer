@@ -106,7 +106,7 @@
                     </Popup>
                 </StackPanel>
 
-                <ListBox ItemsSource="{Binding SavedFiles}"
+                <ListBox ItemsSource="{Binding PopulatedFiles}"
                  SelectedItem="{Binding SelectedFile}"
                  SelectionMode="Extended"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled">

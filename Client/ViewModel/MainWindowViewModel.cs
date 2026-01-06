@@ -27,6 +27,12 @@ namespace FileExplorer.ViewModel
         private List<File> _allFiles;
         private HashSet<string> _globalTags;
 
+        private ObservableCollection<File> _populatedFiles;
+        public ObservableCollection<File> PopulatedFiles
+        {
+            get => _populatedFiles;
+            set => SetProperty(ref _populatedFiles, value);
+        }
         public ObservableCollection<File> SavedFiles { get; set; }
         private ObservableCollection<File> _inputFiles;
         public ObservableCollection<File> InputFiles
@@ -80,11 +86,31 @@ namespace FileExplorer.ViewModel
             SelectFolderCommand = new CommonHelpers.RelayCommand(ExecuteSelectFolder);
             OpenFileCommand = new CommonHelpers.RelayCommand(ExecuteOpenFile);
             AddTagCommand = new CommonHelpers.RelayCommand(ExecuteAddTag);
+            SortCommand = new CommonHelpers.RelayCommand<string>(ExecuteSort);
 
 
             InputFiles = new ObservableCollection<File>();
             SavedFiles = new ObservableCollection<File>();
             _globalTags = new HashSet<string>();    
+        }
+
+        private void ExecuteSort(string obj)
+        {
+            switch (obj)
+            {
+                case "Recent":
+                    PopulatedFiles = SavedFiles;
+                    break;
+                case "Favourites":
+                    //SortFav(); Implement Later when Fav tags are added
+                    break;
+                case "Clear":
+                    PopulatedFiles = null;
+                    break;
+                case "Search":
+                    PopOutSearch();
+                    break;
+            }
         }
 
         /// <summary>
@@ -215,6 +241,21 @@ namespace FileExplorer.ViewModel
             {
                 UpdateSavedFiles(file);
             }
+        }
+
+        private void PopOutSearch()
+        {
+            /*var searchView = new SearchPopOutView(SavedFiles, _globalTags);
+
+            bool? result = detailsWindow.ShowDialog();
+
+            if (result == true)
+            {
+                if (detailsWindow.DataContext is SearchPopOutViewModel childvm)
+                {
+                    PopulatedFiles = new ObservableCollection<string>(childvm.SortedFiles);
+                }
+            }*/
         }
     }
 }
