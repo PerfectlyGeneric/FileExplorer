@@ -19,27 +19,27 @@ namespace FileExplorer.ViewModel
         public ICommand CloseCommand { get; set; }
         public ICommand ExecuteSearchCommand { get; set; }
 
-        public ObservableCollection<string> _tags;
-        private ObservableCollection<string> Tags {
+        private ObservableCollection<string> _tags;
+        public ObservableCollection<string> Tags {
             get => _tags;
             set => SetProperty(ref _tags, value);
         }
 
-        public ObservableCollection<string> _notTags;
-        private ObservableCollection<string> NotTags
+        private ObservableCollection<string> _notTags;
+        public ObservableCollection<string> NotTags
         {
             get => _notTags;
             set => SetProperty(ref _notTags, value);
         }
 
-        public ObservableCollection<string> _names;
-        private ObservableCollection<string> Names
+        private ObservableCollection<string> _names;
+        public ObservableCollection<string> Names
         {
             get => _names;
             set => SetProperty(ref _names, value);
         }
-        public ObservableCollection<string> _notNames;
-        private ObservableCollection<string> NotNames
+        private ObservableCollection<string> _notNames;
+        public ObservableCollection<string> NotNames
         {
             get => _notNames;
             set => SetProperty(ref _notNames, value);
@@ -51,8 +51,8 @@ namespace FileExplorer.ViewModel
         public HashSet<string> givenTags;
         private Action<bool> _closeAction;
 
-        public ObservableCollection<string> _cuteDisplay;
-        private ObservableCollection<string> CuteDisplay
+        private ObservableCollection<string> _cuteDisplay;
+        public ObservableCollection<string> CuteDisplay
         {
             get => _cuteDisplay;
             set => SetProperty(ref _cuteDisplay, value);
