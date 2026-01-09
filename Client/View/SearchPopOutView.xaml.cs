@@ -20,14 +20,13 @@ namespace FileExplorer.View
     /// </summary>
     public partial class SearchPopOutView : Window
     {
-        public SearchPopOutView(IEnumerable<File> sourceFiles, IEnumerable<string> globalTags)
+        public SearchPopOutView(IEnumerable<File> sourceFiles, HashSet<string> globalTags)
         {
             InitializeComponent();
 
             DataContext = new SearchPopOutViewModel(sourceFiles, globalTags, (result) =>
             {
                 this.DialogResult = result;
-                this.Close();
             });
         }
     }

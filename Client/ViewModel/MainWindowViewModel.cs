@@ -245,17 +245,25 @@ namespace FileExplorer.ViewModel
 
         private void PopOutSearch()
         {
-            /*var searchView = new SearchPopOutView(SavedFiles, _globalTags);
+            var searchView = new SearchPopOutView(SavedFiles, _globalTags);
 
-            bool? result = detailsWindow.ShowDialog();
+            bool? result = searchView.ShowDialog();
 
             if (result == true)
             {
-                if (detailsWindow.DataContext is SearchPopOutViewModel childvm)
+                if (searchView.DataContext is SearchPopOutViewModel childvm)
                 {
-                    PopulatedFiles = new ObservableCollection<string>(childvm.SortedFiles);
+                    try
+                    {
+                        PopulatedFiles = new ObservableCollection<File>(childvm.SortedFiles);
+                    }
+
+                    catch(Exception ex) 
+                    {
+                        PopulatedFiles = null;
+                    }
                 }
-            }*/
+            }
         }
     }
 }

@@ -3,10 +3,111 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:FileExplorer.View"
+        xmlns:vm="clr-namespace:FileExplorer.ViewModel"
         mc:Ignorable="d"
-        Title="SearchPopOutView" Height="450" Width="800">
-    <Grid>
-        
+        Title="Advanced Search"
+        Width="400"
+        SizeToContent="Height"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False"
+        WindowStyle="ToolWindow"
+        Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+
+    <Window.Resources>
+        <Style TargetType="TextBlock" x:Key="LabelStyle">
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Margin" Value="0,10,0,2"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Foreground" Value="#444"/>
+        </Style>
+
+        <Style TargetType="TextBox" x:Key="InputStyle">
+            <Setter Property="Padding" Value="4"/>
+            <Setter Property="Height" Value="26"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style TargetType="Button" x:Key="DialogButtonStyle">
+            <Setter Property="Height" Value="26"/>
+            <Setter Property="Margin" Value="10,0,0,0"/>
+            <Setter Property="Padding" Value="15,0"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0" LastChildFill="True" Margin="0,0,0,10">
+            <TextBlock Text="Searching for:" FontWeight="Bold" DockPanel.Dock="Top" Margin="0,0,0,5"/>
+            <Border Background="#EEE" BorderBrush="#CCC" BorderThickness="1" CornerRadius="2" Padding="8">
+                <ItemsControl ItemsSource="{Binding CuteDisplay}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding}" 
+                                       TextWrapping="Wrap" 
+                                       FontFamily="Consolas" 
+                                       Foreground="#333"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Border>
+        </DockPanel>
+
+        <StackPanel Grid.Row="1">
+
+            <TextBlock Text="Names to Include:" Style="{StaticResource LabelStyle}"/>
+            <TextBox x:Name="IncludeNameBox" Style="{StaticResource InputStyle}">
+                <TextBox.InputBindings>
+                    <KeyBinding Key="Return" 
+                                Command="{Binding TypeNamesCommand}" 
+                                CommandParameter="{Binding Text, ElementName=IncludeNameBox}"/>
+                </TextBox.InputBindings>
+            </TextBox>
+
+            <TextBlock Text="Names to Exclude:" Style="{StaticResource LabelStyle}"/>
+            <TextBox x:Name="ExcludeNameBox" Style="{StaticResource InputStyle}">
+                <TextBox.InputBindings>
+                    <KeyBinding Key="Return" 
+                                Command="{Binding TypeNotNamesCommand}" 
+                                CommandParameter="{Binding Text, ElementName=ExcludeNameBox}"/>
+                </TextBox.InputBindings>
+            </TextBox>
+
+            <TextBlock Text="Tags to Include:" Style="{StaticResource LabelStyle}"/>
+            <TextBox x:Name="IncludeTagBox" Style="{StaticResource InputStyle}">
+                <TextBox.InputBindings>
+                    <KeyBinding Key="Return" 
+                                Command="{Binding TypeTagsCommand}" 
+                                CommandParameter="{Binding Text, ElementName=IncludeTagBox}"/>
+                </TextBox.InputBindings>
+            </TextBox>
+
+            <TextBlock Text="Tags to Exclude:" Style="{StaticResource LabelStyle}"/>
+            <TextBox x:Name="ExcludeTagBox" Style="{StaticResource InputStyle}">
+                <TextBox.InputBindings>
+                    <KeyBinding Key="Return" 
+                                Command="{Binding TypeNotTagsCommand}" 
+                                CommandParameter="{Binding Text, ElementName=ExcludeTagBox}"/>
+                </TextBox.InputBindings>
+            </TextBox>
+
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+            <Button Content="Search" 
+                    Style="{StaticResource DialogButtonStyle}"
+                    Command="{Binding ExecuteSearchCommand}"
+                    IsDefault="False"/>
+            <Button Content="Cancel" 
+                    Style="{StaticResource DialogButtonStyle}"
+                    Command="{Binding CloseCommand}"
+                    IsCancel="True"/>
+        </StackPanel>
+
     </Grid>
 </Window>
